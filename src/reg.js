@@ -1,76 +1,92 @@
-import React, {useState} from 'react';
-import './index.css'
+import React from "react";
 
-import {database} from './firebase'
-import {ref,push,child,update} from "firebase/database";
 
-function RegistrationForm() {
-    const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [password,setPassword] = useState(null);
-    const [confirmPassword,setConfirmPassword] = useState(null);
 
-    const handleInputChange = (e) => {
-        const {id , value} = e.target;
-        if(id === "firstName"){
-            setFirstName(value);
-        }
-        if(id === "lastName"){
-            setLastName(value);
-        }
-        if(id === "email"){
-            setEmail(value);
-        }
-        if(id === "password"){
-            setPassword(value);
-        }
-        if(id === "confirmPassword"){
-            setConfirmPassword(value);
-        }
 
-    }
-    const handleSubmit = () =>{
-        let obj = {
-                firstName : firstName,
-                lastName:lastName,
-                email:email,
-                password:password,
-                confirmPassword:confirmPassword,
-            }       
-        const newPostKey = push(child(ref(database), 'posts')).key;
-        const updates = {};
-        updates['/' + newPostKey] = obj
-        return update(ref(database), updates);
-    }
-    return(
-      <div className="form">
-          <div className="form-body">
-              <div className="username">
-                  <label className="form__label" htmlFor="firstName">First Name </label>
-                  <input className="form__input" type="text" id="firstName" placeholder="First Name" onChange = {(e) => handleInputChange(e)}/>
-              </div>
-              <div className="lastname">
-                  <label className="form__label" htmlFor="lastName">Last Name </label>
-                  <input  type="text" name="" id="lastName"  className="form__input"placeholder="LastName" onChange = {(e) => handleInputChange(e)} />
-              </div>
-              <div className="email">
-                  <label className="form__label" htmlFor="email">Email </label>
-                  <input  type="email" id="email" className="form__input" placeholder="Email" onChange = {(e) => handleInputChange(e)}/>
-              </div>
-              <div className="password">
-                  <label className="form__label" htmlFor="password">Password </label>
-                  <input className="form__input" type="password"  id="password" placeholder="Password" onChange = {(e) => handleInputChange(e)}/>
-              </div>
-              <div className="confirm-password">
-                  <label className="form__label" htmlFor="confirmPassword">Confirm Password </label>
-                  <input className="form__input" type="password" id="confirmPassword" placeholder="Confirm Password" onChange = {(e) => handleInputChange(e)}/>
-              </div>
-          </div>
-           <div className="footer">
-                <button onClick={()=>handleSubmit()} type="submit" className="btn">Register</button>
-            </div>
-      </div>      
-    )       
+import "./styles.css";
+
+export default function App() {
+  const [username, setUser] = React.useState("");
+  const [password, setPassWord] = React.useState("");
+  return (
+    <>
+      <div id="login">
+        <img
+          id="logo"
+          src="https://cdn.pixabay.com/photo/2016/08/15/01/29/instagram-1594387_960_720.png"
+          width="75"
+          alt=""
+        />
+        <form>
+          <input
+            type="text"
+            name="username"
+            placeholder="Phone number, username, or email"
+            id="username"
+            onChange={(e) => setUser(e.target.value)}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={(e) => setPassWord(e.target.value)}
+          />
+          <button
+            class="blue-btn"
+            type="button"
+            onClick={() => {
+              console.log(username);
+              console.log(password);
+            }}
+          >
+            Log In
+          </button>
+        </form>
+
+        <div className="orRow">
+          <div className="line"></div>
+          <div id="or">OR</div>
+          <div className="line"></div>
+        </div>
+        <a href="https://www.instagram.com" id="FBLogin">
+          <span className="fab fa-facebook-square"></span>Log in with Facebook
+        </a>
+        <div>
+          <p id="loginError"></p>
+        </div>
+        <a href="https://www.instagram.com" id="forgotPW">
+          Forgot password?
+        </a>
+      </div>
+      <div id="signup">
+        <p>
+          Don't have an account? <a href="https://www.instagram.com">Sign up</a>
+        </p>
+      </div>
+      <div id="getApp">
+        <p>Get the app.</p>
+        <div>
+          <a href="https://www.instagram.com">
+            <img
+              src="https://www.instagram.com/static/images/appstore-install-badges/badge_ios_english-en.png/180ae7a0bcf7.png"
+              width="135"
+              alt=""
+            />
+          </a>
+          <a href="https://www.instagram.com">
+            <img
+              src="https://www.instagram.com/static/images/appstore-install-badges/badge_android_english-en.png/e9cd846dc748.png"
+              width="135"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+
+      <footer style={{ display: "flex", justifyContent: "center" }}>
+        <p className="copyright">&copy; 2019 INSTAGRAM FROM FACEBOOK</p>
+      </footer>
+    </>
+  );
 }
-export default RegistrationForm;
+
