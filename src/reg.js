@@ -3,7 +3,7 @@ import React from "react";
 
 
 
-import "./styles.css";
+import "./index.css";
 
 export default function App() {
   const [username, setUser] = React.useState("");
